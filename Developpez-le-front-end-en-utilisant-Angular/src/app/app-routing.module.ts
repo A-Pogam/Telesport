@@ -5,12 +5,13 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { OlympicsComponent } from './pages/olympics/olympics.component';
 
 const routes: Routes = [
-  { path: 'olympics', component: OlympicsComponent }, 
-  { path: '', redirectTo: '/olympics', pathMatch: 'full' }, 
+  { path: '', component: HomeComponent },
+  { path: 'olympics', loadComponent: () => import('./pages/olympics/olympics.component').then(m => m.OlympicsComponent) }, 
+  { path: '**', component: NotFoundComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

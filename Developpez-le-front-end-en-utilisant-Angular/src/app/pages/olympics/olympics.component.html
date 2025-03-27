@@ -1,14 +1,26 @@
-<h1>List of medals during the Olympic Games</h1>
+<div *ngIf="!selectedCountry">
+  <h2>Medals by Country</h2>
 
-<div *ngIf="!olympics">Chargement en cours...</div>
+  <!-- Graphique en tarte -->
+  <ngx-charts-pie-chart
+  [results]="pieChartData"
+  [legend]="true"
+  (select)="onCountryHover($event)">
+</ngx-charts-pie-chart>
 
-<ul *ngIf="olympics">
-  <li *ngFor="let olympic of olympics">
-    <h2>{{ olympic.country }}</h2>
-    <ul>
-      <li *ngFor="let participation of olympic.participations">
-        Year : {{ participation.year }} - City : {{ participation.city }} - Medals : {{ participation.medalsCount }}
-      </li>
-    </ul>
-  </li>
-</ul>
+</div>
+
+<div *ngIf="selectedCountry">
+  <button (click)="router.navigate(['/olympics'])">Retour</button>
+
+  <h2>Medals by Year - {{ selectedCountry?.country }}</h2>
+
+  <!-- Graphique en ligne -->
+  <ngx-charts-line-chart
+    [results]="lineChartData: { name: string; series: { name: string; value: number }[] }[] = [];"
+    [xAxis]="true"
+    [yAxis]="true"
+    [showDataLabel]="true"
+    [curve]="false">
+  </ngx-charts-line-chart>
+</div>
