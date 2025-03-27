@@ -14,10 +14,10 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.olympicService.loadInitialData().pipe(take(1)).subscribe({
       next: (data: Olympic[]) => {
-        console.log('Données chargées avec succès :', data);
+        console.log('Data loaded :', data);
       },
       error: (error) => {
-        console.error('Erreur lors du chargement des données :', error);
+        console.error('Error during loading data :', error);
       }
     });
   }
