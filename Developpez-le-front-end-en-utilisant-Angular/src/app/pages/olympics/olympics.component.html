@@ -1,0 +1,14 @@
+<h1>Liste des  médailles des Jeux Olympiques</h1>
+
+<div *ngIf="!olympics">Chargement en cours...</div>
+
+<ul *ngIf="olympics">
+  <li *ngFor="let olympic of olympics">
+    <h2>{{ olympic.country }}</h2>
+    <ul>
+      <li *ngFor="let participation of olympic.participations">
+        Année : {{ participation.year }} - Ville : {{ participation.city }} - Médailles : {{ participation.medalsCount }}
+      </li>
+    </ul>
+  </li>
+</ul>
