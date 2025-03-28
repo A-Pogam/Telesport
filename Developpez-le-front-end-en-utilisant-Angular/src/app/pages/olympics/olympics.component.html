@@ -1,1 +1,17 @@
+<h2>Medals by Year - {{ selectedCountry?.country }}</h2>
+
+<!-- Informations sur le pays -->
+<p>Nombre de participations: {{ selectedCountry?.participations?.length || 0 }}</p>
+<p>Nombre total de médailles: {{ totalMedals }}</p>
+<p>Nombre d'athlètes: {{ totalAthletes }}</p>
+
+<ngx-charts-line-chart
+  [view]="[700, 400]"
+  [results]="lineChartData"
+  [legend]="true"
+  [xAxis]="true"
+  [yAxis]="true"
+  [showDataLabel]="true">
+</ngx-charts-line-chart>
+
 

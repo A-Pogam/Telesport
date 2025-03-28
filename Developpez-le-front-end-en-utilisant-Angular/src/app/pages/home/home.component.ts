@@ -25,6 +25,7 @@ export class HomeComponent implements OnInit {
     this.loadOlympicData();
   }
 
+    //prévoir un unsubscribe pour éviter les fuites de mémoire
   private loadOlympicData(): void {
     this.olympics$.subscribe((data) => {
       if (data) {
@@ -38,10 +39,19 @@ export class HomeComponent implements OnInit {
       name: country.country,
       value: country.participations?.reduce((total, participation) => total + (participation.medalsCount || 0), 0) || 0
     }));
-    console.log('Pie Chart Data:', this.pieChartData); // Vérifiez les données ici
+    console.log('Pie Chart Data:', this.pieChartData); 
   }
 
-  navigateToOlympics(): void {
-    this.router.navigate(['/olympics']);
-  }
+  onCountryClick(event: any): void {
+    const countryName = event.name;
+    const country = this.pieChartData.find((item) => item.name === countryName);
+
+    if (country) {
+      this.router.navigate([`/olympics/${countryName}`]);  // Redirection vers la page du pays
+    }
+}
+navigateToOlympics(): void {
+  this.router.navigate(['/olympics']);
+}
+
 }

@@ -4,11 +4,14 @@
 
 <div *ngIf="!selectedCountry">
   <h2>Medals by Country</h2>
-
   <!-- Graphique en tarte -->
   <ngx-charts-pie-chart
     [results]="pieChartData"
-    [legend]="true">
+    [legend]="true"
+    (select)="onCountryClick($event)">
   </ngx-charts-pie-chart>
 </div>
 
+<div *ngIf="selectedCountry">
+  <button (click)="navigateToOlympics()">Retour à l'accueil</button>
+</div>

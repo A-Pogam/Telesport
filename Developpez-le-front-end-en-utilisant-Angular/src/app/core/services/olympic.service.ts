@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, EMPTY } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError, tap, filter, defaultIfEmpty } from 'rxjs/operators';
 import { Olympic } from '../models/Olympic';
 
 @Injectable({
@@ -15,19 +15,25 @@ export class OlympicService {
     this.loadInitialData();
   }
 
-  loadInitialData(): Observable<Olympic[]> {
+  loadInitialData(): Observable<Olympic[]> {  // Change le type ici
     return this.http.get<Olympic[]>(this.olympicUrl).pipe(
-      tap((data) => this.olympics$.next(data)),
+      tap((data) => {
+        this.olympics$.next(data);
+      }),
       catchError((error) => {
         console.error('Erreur de chargement des médailles :', error);
         this.olympics$.next(null);
-        return EMPTY;
+        return EMPTY; // Retourne un observable vide en cas d'erreur
       })
     );
   }
+
   
 
-  getOlympics() {
-    return this.olympics$.asObservable();
+  getOlympics(): Observable<Olympic[]> {
+    return this.olympics$.asObservable().pipe(
+      filter((data) => data !== null), // Ignore null
+      defaultIfEmpty([]) // Si c'est null, renvoie un tableau vide
+    );
   }
 }

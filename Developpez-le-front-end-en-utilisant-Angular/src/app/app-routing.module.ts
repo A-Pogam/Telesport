@@ -6,7 +6,8 @@ import { OlympicsComponent } from './pages/olympics/olympics.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'olympics', loadComponent: () => import('./pages/olympics/olympics.component').then(m => m.OlympicsComponent) }, 
+  { path: 'olympics', component: OlympicsComponent }, 
+  { path: 'olympics/:countryId', component: OlympicsComponent },  
   { path: '**', component: NotFoundComponent },
 ];
 
