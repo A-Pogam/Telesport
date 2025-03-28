@@ -4,23 +4,15 @@
   <!-- Graphique en tarte -->
   <ngx-charts-pie-chart
   [results]="pieChartData"
-  [legend]="true"
-  (select)="onCountryHover($event)">
+  [legend]="true">
 </ngx-charts-pie-chart>
 
 </div>
 
 <div *ngIf="selectedCountry">
-  <button (click)="router.navigate(['/olympics'])">Retour</button>
+  <button (click)="navigateToOlympics()">Retour</button>
 
   <h2>Medals by Year - {{ selectedCountry?.country }}</h2>
 
-  <!-- Graphique en ligne -->
-  <ngx-charts-line-chart
-    [results]="lineChartData: { name: string; series: { name: string; value: number }[] }[] = [];"
-    [xAxis]="true"
-    [yAxis]="true"
-    [showDataLabel]="true"
-    [curve]="false">
-  </ngx-charts-line-chart>
+  
 </div>

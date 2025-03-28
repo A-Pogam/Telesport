@@ -5,8 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
-import { OlympicsComponent } from './pages/olympics/olympics.component';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 @NgModule({
   declarations: [
@@ -17,8 +15,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule,
-    NgxChartsModule  
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent],
