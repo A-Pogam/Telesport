@@ -37,6 +37,7 @@ export class OlympicsComponent implements OnInit {
       name: country.country,
       value: country.participations?.reduce((total, participation) => total + (participation.medalsCount || 0), 0) || 0
     })) || [];
+    console.log(this.pieChartData);
   }
 
   private checkSelectedCountry(): void {
@@ -62,7 +63,7 @@ export class OlympicsComponent implements OnInit {
     }
   }
 
- 
+
 
   navigateToOlympics(): void {
     this.router.navigate(['/olympics']);
