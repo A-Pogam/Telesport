@@ -1,4 +1,14 @@
-<h2>Olympic games app</h2>
+<h2>Olympic Games App</h2>
 <hr />
 <p>{{ (olympics$ | async)?.length }} data loaded</p>
+
+<div *ngIf="!selectedCountry">
+  <h2>Medals by Country</h2>
+
+  <!-- Graphique en tarte -->
+  <ngx-charts-pie-chart
+    [results]="pieChartData"
+    [legend]="true">
+  </ngx-charts-pie-chart>
+</div>
 
