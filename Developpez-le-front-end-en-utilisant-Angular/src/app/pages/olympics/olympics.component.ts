@@ -4,13 +4,16 @@ import { Olympic } from '../../core/models/Olympic';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { HttpErrorResponse } from '@angular/common/http'; 
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+
 
 @Component({
   selector: 'app-olympics',
   standalone: true,
   imports: [NgxChartsModule], 
   templateUrl: './olympics.component.html',
-  styleUrls: ['./olympics.component.scss']
+  styleUrls: ['./olympics.component.scss'],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class OlympicsComponent implements OnInit {
   olympics: Olympic[] | null = null;
