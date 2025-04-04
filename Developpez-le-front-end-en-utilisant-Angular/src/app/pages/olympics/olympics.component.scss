@@ -20,6 +20,14 @@ $main-green: #20838F;
   flex-wrap: wrap;
 }
 
+.chart-container {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto 32px auto;
+    display: flex;
+    justify-content: center;
+  }
+  
 .chart-wrapper {
     display: flex;
     justify-content: center;
@@ -32,6 +40,23 @@ $main-green: #20838F;
     flex-wrap: wrap;
     gap: 24px;
     margin-bottom: 32px;
+  }
+  @media (max-width: 400px) and (max-height: 845px) {
+    .chart-wrapper {
+      width: 90%;
+    }
+  }
+  
+  @media (min-width: 401px) and (max-width: 600px) {
+    .chart-wrapper {
+      width: 90%;
+    }
+  }
+  
+  @media (min-width: 601px) and (max-width: 900px) {
+    .chart-wrapper {
+      width: 80%;
+    }
   }
   
   .metric-box {

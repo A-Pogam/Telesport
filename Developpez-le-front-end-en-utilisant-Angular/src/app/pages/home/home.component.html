@@ -1,27 +1,25 @@
 <div *ngIf="!selectedCountry">
     <div class="centered">
-        <h2 class="header-box">Medals per Country</h2>
-      </div>
-      
-      <div class="metrics-container">
-        <div class="metric-box">
-          <p class="metric-title">Number of JOs</p>
-          <p class="metric-value">{{ totalJOs }}</p>
-        </div>
-        <div class="metric-box">
-          <p class="metric-title">Number of Countries</p>
-          <p class="metric-value">{{ (olympics$ | async)?.length }}</p>
-        </div>
-      </div>
-      
-
+      <h2 class="header-box">Medals per Country</h2>
+    </div>
   
-<div class="centered">
-    <ngx-charts-pie-chart
-      [view]="[600, 400]"
-      [results]="pieChartData"
-      (select)="onCountryClick($event)">
-    </ngx-charts-pie-chart>
-  </div>
+    <div class="metrics-container">
+      <div class="metric-box">
+        <p class="metric-title">Number of JOs</p>
+        <p class="metric-value">{{ totalJOs }}</p>
+      </div>
+      <div class="metric-box">
+        <p class="metric-title">Number of Countries</p>
+        <p class="metric-value">{{ (olympics$ | async)?.length }}</p>
+      </div>
+    </div>
+  
+    <div class="centered">
+      <ngx-charts-pie-chart
+        [view]="view"
+        [results]="pieChartData"
+        (select)="onCountryClick($event)">
+      </ngx-charts-pie-chart>
+    </div>
   </div>
   

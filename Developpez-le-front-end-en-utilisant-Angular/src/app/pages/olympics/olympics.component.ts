@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { OlympicService } from '../../core/services/olympic.service';
 import { Olympic } from '../../core/models/Olympic';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -19,6 +19,7 @@ export class OlympicsComponent implements OnInit {
   lineChartData: { name: string; series: { name: string; value: number }[] }[] = [];
   totalMedals: number = 0;
   totalAthletes: number = 0;
+  view: [number, number] = [700, 400];
 
   constructor(
     private olympicService: OlympicService,
@@ -28,6 +29,27 @@ export class OlympicsComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadOlympicData();
+    this.updateChartDimensions();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.updateChartDimensions();
+  }
+
+  private updateChartDimensions(): void {
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    if (width <= 400 && height <= 845) {
+      this.view = [300, 200]; 
+    } else if (width < 600) {
+      this.view = [300, 200];
+    } else if (width < 900) {
+      this.view = [500, 300];
+    } else {
+      this.view = [700, 400];
+    }
   }
 
   private loadOlympicData(): void {
