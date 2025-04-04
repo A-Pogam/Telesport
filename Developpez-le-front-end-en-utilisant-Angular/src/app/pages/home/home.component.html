@@ -1,17 +1,27 @@
-<h2>Olympic Games App</h2>
-<hr />
-<p>{{ (olympics$ | async)?.length }} data loaded</p>
-
 <div *ngIf="!selectedCountry">
-  <h2>Medals by Country</h2>
-  <!-- Graphique en tarte -->
-  <ngx-charts-pie-chart
-    [results]="pieChartData"
-    [legend]="true"
-    (select)="onCountryClick($event)">
-  </ngx-charts-pie-chart>
-</div>
+    <div class="centered">
+        <h2 class="header-box">Medals per Country</h2>
+      </div>
+      
+      <div class="metrics-container">
+        <div class="metric-box">
+          <p class="metric-title">Number of JOs</p>
+          <p class="metric-value">{{ totalJOs }}</p>
+        </div>
+        <div class="metric-box">
+          <p class="metric-title">Number of Countries</p>
+          <p class="metric-value">{{ (olympics$ | async)?.length }}</p>
+        </div>
+      </div>
+      
 
-<div *ngIf="selectedCountry">
-  <button (click)="navigateToOlympics()">Retour à l'accueil</button>
-</div>
+  
+<div class="centered">
+    <ngx-charts-pie-chart
+      [view]="[600, 400]"
+      [results]="pieChartData"
+      (select)="onCountryClick($event)">
+    </ngx-charts-pie-chart>
+  </div>
+  </div>
+  

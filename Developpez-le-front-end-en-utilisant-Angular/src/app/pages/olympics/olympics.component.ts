@@ -3,17 +3,15 @@ import { OlympicService } from '../../core/services/olympic.service';
 import { Olympic } from '../../core/models/Olympic';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { HttpErrorResponse } from '@angular/common/http'; 
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-
+import { HttpErrorResponse } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-olympics',
   standalone: true,
-  imports: [NgxChartsModule], 
+  imports: [CommonModule, NgxChartsModule],
   templateUrl: './olympics.component.html',
-  styleUrls: ['./olympics.component.scss'],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  styleUrls: ['./olympics.component.scss']
 })
 export class OlympicsComponent implements OnInit {
   olympics: Olympic[] | null = null;
@@ -23,8 +21,8 @@ export class OlympicsComponent implements OnInit {
   totalAthletes: number = 0;
 
   constructor(
-    private olympicService: OlympicService, 
-    private router: Router, 
+    private olympicService: OlympicService,
+    private router: Router,
     private route: ActivatedRoute
   ) {}
 
@@ -46,41 +44,31 @@ export class OlympicsComponent implements OnInit {
 
   private checkSelectedCountry(): void {
     this.route.paramMap.subscribe((params) => {
-      const countryId = params.get('countryId');
-      if (countryId) {
-        this.loadCountryDetails(countryId);
+      const countryName = params.get('countryId');
+      if (countryName) {
+        this.loadCountryDetails(countryName);
       }
     });
   }
 
-  private loadCountryDetails(countryId: string): void {
-    this.selectedCountry = this.olympics?.find(country => country.id.toString() === countryId) || null;
-    
+  private loadCountryDetails(countryName: string): void {
+    this.selectedCountry = this.olympics?.find(country => country.country === countryName) || null;
+
     if (this.selectedCountry) {
       this.lineChartData = [{
         name: this.selectedCountry.country,
-        series: this.selectedCountry.participations.map(participation => ({
-          name: participation.year.toString(),
-          value: participation.medalsCount
+        series: this.selectedCountry.participations.map(p => ({
+          name: p.year.toString(),
+          value: p.medalsCount
         }))
       }];
-      
-      // Calcul des totaux
-      this.totalMedals = this.selectedCountry.participations.reduce((total, participation) => total + (participation.medalsCount || 0), 0);
-      this.totalAthletes = this.selectedCountry.participations.reduce((total, participation) => total + (participation.athleteCount || 0), 0);  // Correction ici
-    }
-  }
 
-
-  onCountryClick(event: any): void {
-    const countryName = event.name;  
-    const country = this.olympics?.find(c => c.country === countryName);
-    if (country) {
-      this.router.navigate([`/olympics/${country.id}`]);
+      this.totalMedals = this.selectedCountry.participations.reduce((sum, p) => sum + p.medalsCount, 0);
+      this.totalAthletes = this.selectedCountry.participations.reduce((sum, p) => sum + p.athleteCount, 0);
     }
   }
 
   navigateToOlympics(): void {
-    this.router.navigate(['/']);  // Retour à la page d'accueil
+    this.router.navigate(['/']);
   }
 }

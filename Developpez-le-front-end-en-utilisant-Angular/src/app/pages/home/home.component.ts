@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subscription } from 'rxjs';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import { Olympic } from '../../core/models/Olympic';
 import { Router } from '@angular/router';
@@ -17,6 +17,10 @@ export class HomeComponent implements OnInit {
   public olympics$: Observable<Olympic[] | null> = of(null);
   selectedCountry: Olympic | null = null;
   pieChartData: { name: string; value: number }[] = [];
+  private olympicSub!: Subscription;
+  totalJOs: number = 0;
+
+  
 
   constructor(private olympicService: OlympicService, private router: Router) {}
 
@@ -26,13 +30,25 @@ export class HomeComponent implements OnInit {
   }
 
     //prévoir un unsubscribe pour éviter les fuites de mémoire
-  private loadOlympicData(): void {
-    this.olympics$.subscribe((data) => {
-      if (data) {
-        this.preparePieChartData(data);
+    private loadOlympicData(): void {
+      this.olympicSub = this.olympics$.subscribe((data) => {
+        if (data) {
+          this.preparePieChartData(data);
+          this.totalJOs = data.reduce((sum, country) => sum + (country.participations?.length || 0), 0);
+        } else {
+          this.pieChartData = [];
+          this.totalJOs = 0;
+        }
+      });
+    }
+
+    ngOnDestroy(): void {
+      if (this.olympicSub) {
+        this.olympicSub.unsubscribe();
       }
-    });
-  }
+    }
+    
+    
 
   private preparePieChartData(olympics: Olympic[]): void {
     this.pieChartData = olympics.map((country) => ({

@@ -1,17 +1,58 @@
-<h2>Medals by Year - {{ selectedCountry?.country }}</h2>
+<h2 class="country-title">
+  {{ selectedCountry?.country }}
+</h2>
 
-<!-- Informations sur le pays -->
-<p>Nombre de participations: {{ selectedCountry?.participations?.length || 0 }}</p>
-<p>Nombre total de médailles: {{ totalMedals }}</p>
-<p>Nombre d'athlètes: {{ totalAthletes }}</p>
+<!-- Exemple pour chaque métrique -->
+<div class="metrics-container">
+  <div class="metric-box">
+    <p class="metric-title">Number of entries</p>
+    <p class="metric-value">{{ selectedCountry?.participations?.length || 0 }}</p>
+  </div>
+  <div class="metric-box">
+    <p class="metric-title">Total number of medals</p>
+    <p class="metric-value">{{ totalMedals }}</p>
+  </div>
+  <div class="metric-box">
+    <p class="metric-title">Total number of athletes</p>
+    <p class="metric-value">{{ totalAthletes }}</p>
+  </div>
+</div>
 
-<ngx-charts-line-chart
-  [view]="[700, 400]"
-  [results]="lineChartData"
-  [legend]="true"
-  [xAxis]="true"
-  [yAxis]="true"
-  [showDataLabel]="true">
-</ngx-charts-line-chart>
+<div class="chart-wrapper">
+  <ngx-charts-line-chart
+    [view]="[700, 400]"
+    [results]="lineChartData"
+    [xAxis]="true"
+    [yAxis]="true">
+  </ngx-charts-line-chart>
+</div>
 
 
+<h3>Participations :</h3>
+
+<ng-container *ngIf="selectedCountry?.participations?.length">
+  <table class="participation-table">
+    <thead>
+      <tr>
+        <th>Year</th>
+        <th>City</th>
+        <th>Number of medals</th>
+        <th>Number of athletes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let participation of selectedCountry?.participations">
+        <td>{{ participation.year }}</td>
+        <td>{{ participation.city }}</td>
+        <td>{{ participation.medalsCount }}</td>
+        <td>{{ participation.athleteCount }}</td>
+      </tr>
+    </tbody>
+  </table>
+</ng-container>
+
+<p *ngIf="selectedCountry && !selectedCountry.participations?.length">
+  Ce pays n’a pas encore participé aux Jeux Olympiques.
+</p>
+
+<button (click)="navigateToOlympics()">Go back</button>
