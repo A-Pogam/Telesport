@@ -1,29 +1,101 @@
-# OlympicGamesStarter
+# Olympic Stats Application
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.3.
+This Angular application allows you to view data about the Olympic Games, including medals, the number of participating countries, and detailed statistics for each country.
 
-Don't forget to install your node_modules before starting (`npm install`).
+## Main Features
 
-## Development server
+- **Home Page:** Displays a pie chart showing the number of medals by country and some global statistics about the Olympic Games.
+- **Country Details Page:** Displays detailed information for each country, including total medals, total athletes, and a line chart showing the number of medals by year.
+- **Responsiveness:** The charts automatically adjust to the window size for an optimal experience on different devices.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Prerequisites
 
-## Build
+Before starting, make sure you have Node.js and Angular CLI installed on your machine.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+1. **Node.js**: [Download and install Node.js](https://nodejs.org/)
+2. **Angular CLI**: Install Angular CLI via npm:
+   ```bash
+   npm install -g @angular/cli
+   ```
 
-## Where to start
+## Installation
 
-As you can see, an architecture has already been defined for the project. It is just a suggestion, you can choose to use your own. The predefined architecture includes (in addition to the default angular architecture) the following:
+1. Clone the project repository:
+   ```bash
+   git clone <your-git-repository>
+   cd <project-folder>
+   ```
 
-- `components` folder: contains every reusable components
-- `pages` folder: contains components used for routing
-- `core` folder: contains the business logic (`services` and `models` folders)
+2. Install the dependencies:
+   ```bash
+   npm install
+   ```
 
-I suggest you to start by understanding this starter code. Pay an extra attention to the `app-routing.module.ts` and the `olympic.service.ts`.
+3. Start the application in development mode:
+   ```bash
+   ng serve
+   ```
 
-Once mastered, you should continue by creating the typescript interfaces inside the `models` folder. As you can see I already created two files corresponding to the data included inside the `olympic.json`. With your interfaces, improve the code by replacing every `any` by the corresponding interface.
+   This will start the application at `http://localhost:4200/`.
 
-You're now ready to implement the requested features.
+## Application Structure
 
-Good luck!
+### 1. **Main Components:**
+
+- **HomeComponent:** The component for the homepage that displays a pie chart of medals by country and some global statistics.
+- **OlympicsComponent:** The component for the country details page. It displays a line chart of medals by year and detailed statistics about the country's participation.
+- **AppComponent:** The main component that loads the initial data and displays the homepage.
+
+### 2. **Services:**
+
+- **OlympicService:** A service that retrieves Olympic data from a JSON file and provides it to the components.
+
+### 3. **Models:**
+
+- **Olympic:** A model representing a country and its Olympic participations.
+
+### 4. **Modules:**
+
+- **NgxChartsModule:** Used for displaying interactive charts (pie chart and line chart) of Olympic data.
+- **HttpClientModule:** Used for making HTTP requests to load the data.
+
+## Chart Functionality
+
+### 1. **Pie Chart:**
+
+Displays the total number of medals for each country participating in the Olympic Games. When a user clicks on a country, they are redirected to a page showing detailed statistics for that country.
+
+- **Properties:**
+  - `view`: Defines the size of the chart based on screen size.
+  - `results`: Contains data for each country and the total number of medals.
+
+### 2. **Line Chart:**
+
+Displays the number of medals obtained by a country over the years. This chart is visible when the user selects a country from the pie chart.
+
+- **Properties:**
+  - `view`: Defines the size of the chart.
+  - `results`: Contains data for medals by year.
+
+## Routes
+
+- **`/`** : Home page with a pie chart of medals by country.
+- **`/olympics`** : Displays general statistics about the Olympic Games.
+- **`/olympics/:countryId`** : Displays detailed information about a selected country, including a line chart of medals by year.
+- **`/not-found`** : Page displayed when a non-existent route is requested.
+
+## Example Usage
+
+### Example 1: Accessing a Specific Country's Page
+1. The user clicks on a country in the pie chart.
+2. They are redirected to the page `/olympics/:countryId`, where detailed information about that country's participation is displayed.
+
+### Example 2: Dynamic Resizing
+The chart automatically adjusts based on the window size to provide an optimal experience on different devices.
+
+## Technologies Used
+
+- **Angular**: The main framework for frontend development.
+- **Ngx-Charts**: A library for interactive charts.
+- **RxJS**: Used for managing asynchronous data streams.
+- **HttpClient**: Used to retrieve data from the JSON file.

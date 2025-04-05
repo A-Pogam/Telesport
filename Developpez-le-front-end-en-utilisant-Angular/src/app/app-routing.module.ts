@@ -8,7 +8,8 @@ const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'olympics', component: OlympicsComponent }, 
   { path: 'olympics/:countryId', component: OlympicsComponent },  
-  { path: '**', component: NotFoundComponent },
+  { path: 'not-found', component: NotFoundComponent },
+  { path: '**', redirectTo: '/not-found' } 
 ];
 
 @NgModule({

@@ -6,6 +6,11 @@ import { Router } from '@angular/router';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { CommonModule } from '@angular/common';
 
+interface CountryChartEvent {
+  name: string;  // Le nom du pays
+  value: number; // La valeur associée à ce pays (par exemple, le nombre de médailles)
+}
+
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -30,7 +35,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   @HostListener('window:resize', ['$event'])
-  onResize(event: any) {
+  onResize(event: Event): void {
     this.updateChartDimensions();
   }
 
@@ -75,13 +80,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     console.log('Pie Chart Data:', this.pieChartData);
   }
 
-  onCountryClick(event: any): void {
+  onCountryClick(event: CountryChartEvent): void { 
     const countryName = event.name;
-    const country = this.pieChartData.find((item) => item.name === countryName);
-
-    if (country) {
-      this.router.navigate([`/olympics/${countryName}`]);  
-    }
+    this.router.navigate([`/olympics/${countryName}`]);  
   }
 
   navigateToOlympics(): void {

@@ -29,28 +29,7 @@
 
 
 
-<h3>Participations :</h3>
 
-<ng-container *ngIf="selectedCountry?.participations?.length">
-  <table class="participation-table">
-    <thead>
-      <tr>
-        <th>Year</th>
-        <th>City</th>
-        <th>Number of medals</th>
-        <th>Number of athletes</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let participation of selectedCountry?.participations">
-        <td>{{ participation.year }}</td>
-        <td>{{ participation.city }}</td>
-        <td>{{ participation.medalsCount }}</td>
-        <td>{{ participation.athleteCount }}</td>
-      </tr>
-    </tbody>
-  </table>
-</ng-container>
 
 <p *ngIf="selectedCountry && !selectedCountry.participations?.length">
   Ce pays n’a pas encore participé aux Jeux Olympiques.
