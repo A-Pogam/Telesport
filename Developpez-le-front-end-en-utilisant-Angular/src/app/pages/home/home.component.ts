@@ -5,11 +5,7 @@ import { Olympic } from '../../core/models/Olympic';
 import { Router } from '@angular/router';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { CommonModule } from '@angular/common';
-
-interface CountryChartEvent {
-  name: string;  // Le nom du pays
-  value: number; // La valeur associée à ce pays (par exemple, le nombre de médailles)
-}
+import { CountryChartEvent } from '../../core/models/country-chart-event'; 
 
 @Component({
   selector: 'app-home',
