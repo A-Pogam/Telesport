@@ -59,7 +59,7 @@ export class OlympicsComponent implements OnInit {
         this.checkSelectedCountry();
       },
       error: (error: HttpErrorResponse) => {
-        console.error('Erreur de chargement des données olympiques:', error);
+        console.error('error data olympics loading:', error);
       }
     });
   }
@@ -75,20 +75,24 @@ export class OlympicsComponent implements OnInit {
 
   private loadCountryDetails(countryName: string): void {
     this.selectedCountry = this.olympics?.find(country => country.country === countryName) || null;
-
-    if (this.selectedCountry) {
-      this.lineChartData = [{
-        name: this.selectedCountry.country,
-        series: this.selectedCountry.participations.map(p => ({
-          name: p.year.toString(),
-          value: p.medalsCount
-        }))
-      }];
-
-      this.totalMedals = this.selectedCountry.participations.reduce((sum, p) => sum + p.medalsCount, 0);
-      this.totalAthletes = this.selectedCountry.participations.reduce((sum, p) => sum + p.athleteCount, 0);
+  
+    if (!this.selectedCountry) {
+      this.router.navigate(['/not-found']);
+      return;
     }
+  
+    this.lineChartData = [{
+      name: this.selectedCountry.country,
+      series: this.selectedCountry.participations.map(p => ({
+        name: p.year.toString(),
+        value: p.medalsCount
+      }))
+    }];
+  
+    this.totalMedals = this.selectedCountry.participations.reduce((sum, p) => sum + p.medalsCount, 0);
+    this.totalAthletes = this.selectedCountry.participations.reduce((sum, p) => sum + p.athleteCount, 0);
   }
+  
 
   navigateToOlympics(): void {
     this.router.navigate(['/']);

@@ -15,7 +15,7 @@ export class OlympicService {
     this.loadInitialData();
   }
 
-  loadInitialData(): Observable<Olympic[]> {  // Change le type ici
+  loadInitialData(): Observable<Olympic[]> { 
     return this.http.get<Olympic[]>(this.olympicUrl).pipe(
       tap((data) => {
         this.olympics$.next(data);
@@ -23,7 +23,7 @@ export class OlympicService {
       catchError((error) => {
         console.error('Erreur de chargement des médailles :', error);
         this.olympics$.next(null);
-        return EMPTY; // Retourne un observable vide en cas d'erreur
+        return EMPTY; 
       })
     );
   }
@@ -32,8 +32,7 @@ export class OlympicService {
 
   getOlympics(): Observable<Olympic[]> {
     return this.olympics$.asObservable().pipe(
-      filter((data) => data !== null), // Ignore null
-      defaultIfEmpty([]) // Si c'est null, renvoie un tableau vide
+      filter((data) => data !== null), 
     );
   }
 }
